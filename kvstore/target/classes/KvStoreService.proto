@@ -1,0 +1,35 @@
+syntax = "proto3";
+package cs6650.kvstore;
+
+
+message KvMessage {
+    string msgType = 1;
+    string key = 2;
+    string value = 3;
+    string status = 4;
+    string message = 5;
+    string tpcOpId = 6; 
+}
+
+
+message Empty {
+
+}
+
+
+service KvStoreService {
+    rpc put(KvMessage) returns (KvMessage);
+    rpc get(KvMessage) returns (KvMessage);
+    rpc delete(KvMessage) returns (KvMessage);
+
+    // two pc rpc
+    rpc prepare(KvMessage) returns (KvMessage);
+    rpc commit(KvMessage) returns (KvMessage);
+    rpc abort(KvMessage) returns (KvMessage);
+}
+
+
+
+service TpcManagerService {
+    rpc startTpc(KvMessage) returns (Empty);
+}
