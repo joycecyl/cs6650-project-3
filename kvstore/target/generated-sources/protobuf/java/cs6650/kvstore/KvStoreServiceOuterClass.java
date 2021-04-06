@@ -19,14 +19,13 @@ public final class KvStoreServiceOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string msgType = 1;</code>
+     * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
      */
-    java.lang.String getMsgType();
+    int getMsgTypeValue();
     /**
-     * <code>string msgType = 1;</code>
+     * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getMsgTypeBytes();
+    cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType getMsgType();
 
     /**
      * <code>string key = 2;</code>
@@ -90,7 +89,7 @@ public final class KvStoreServiceOuterClass {
       super(builder);
     }
     private KvMessage() {
-      msgType_ = "";
+      msgType_ = 0;
       key_ = "";
       value_ = "";
       status_ = "";
@@ -123,10 +122,10 @@ public final class KvStoreServiceOuterClass {
               }
               break;
             }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
+              int rawValue = input.readEnum();
 
-              msgType_ = s;
+              msgType_ = rawValue;
               break;
             }
             case 18: {
@@ -182,38 +181,118 @@ public final class KvStoreServiceOuterClass {
               cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.class, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder.class);
     }
 
-    public static final int MSGTYPE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object msgType_;
     /**
-     * <code>string msgType = 1;</code>
+     * Protobuf enum {@code cs6650.kvstore.KvMessage.KvMessageType}
      */
-    public java.lang.String getMsgType() {
-      java.lang.Object ref = msgType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        msgType_ = s;
-        return s;
+    public enum KvMessageType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>getReq = 0;</code>
+       */
+      getReq(0),
+      /**
+       * <code>getRes = 1;</code>
+       */
+      getRes(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>getReq = 0;</code>
+       */
+      public static final int getReq_VALUE = 0;
+      /**
+       * <code>getRes = 1;</code>
+       */
+      public static final int getRes_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
       }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static KvMessageType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static KvMessageType forNumber(int value) {
+        switch (value) {
+          case 0: return getReq;
+          case 1: return getRes;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<KvMessageType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          KvMessageType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<KvMessageType>() {
+              public KvMessageType findValueByNumber(int number) {
+                return KvMessageType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final KvMessageType[] VALUES = values();
+
+      public static KvMessageType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private KvMessageType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:cs6650.kvstore.KvMessage.KvMessageType)
+    }
+
+    public static final int MSGTYPE_FIELD_NUMBER = 1;
+    private int msgType_;
+    /**
+     * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
+     */
+    public int getMsgTypeValue() {
+      return msgType_;
     }
     /**
-     * <code>string msgType = 1;</code>
+     * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getMsgTypeBytes() {
-      java.lang.Object ref = msgType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        msgType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType getMsgType() {
+      cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType result = cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.valueOf(msgType_);
+      return result == null ? cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.UNRECOGNIZED : result;
     }
 
     public static final int KEY_FIELD_NUMBER = 2;
@@ -398,8 +477,8 @@ public final class KvStoreServiceOuterClass {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getMsgTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, msgType_);
+      if (msgType_ != cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.getReq.getNumber()) {
+        output.writeEnum(1, msgType_);
       }
       if (!getKeyBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, key_);
@@ -423,8 +502,9 @@ public final class KvStoreServiceOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!getMsgTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, msgType_);
+      if (msgType_ != cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.getReq.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, msgType_);
       }
       if (!getKeyBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, key_);
@@ -457,8 +537,7 @@ public final class KvStoreServiceOuterClass {
       cs6650.kvstore.KvStoreServiceOuterClass.KvMessage other = (cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) obj;
 
       boolean result = true;
-      result = result && getMsgType()
-          .equals(other.getMsgType());
+      result = result && msgType_ == other.msgType_;
       result = result && getKey()
           .equals(other.getKey());
       result = result && getValue()
@@ -480,7 +559,7 @@ public final class KvStoreServiceOuterClass {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + MSGTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getMsgType().hashCode();
+      hash = (53 * hash) + msgType_;
       hash = (37 * hash) + KEY_FIELD_NUMBER;
       hash = (53 * hash) + getKey().hashCode();
       hash = (37 * hash) + VALUE_FIELD_NUMBER;
@@ -620,7 +699,7 @@ public final class KvStoreServiceOuterClass {
       }
       public Builder clear() {
         super.clear();
-        msgType_ = "";
+        msgType_ = 0;
 
         key_ = "";
 
@@ -701,9 +780,8 @@ public final class KvStoreServiceOuterClass {
 
       public Builder mergeFrom(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage other) {
         if (other == cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()) return this;
-        if (!other.getMsgType().isEmpty()) {
-          msgType_ = other.msgType_;
-          onChanged();
+        if (other.msgType_ != 0) {
+          setMsgTypeValue(other.getMsgTypeValue());
         }
         if (!other.getKey().isEmpty()) {
           key_ = other.key_;
@@ -751,71 +829,46 @@ public final class KvStoreServiceOuterClass {
         return this;
       }
 
-      private java.lang.Object msgType_ = "";
+      private int msgType_ = 0;
       /**
-       * <code>string msgType = 1;</code>
+       * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
        */
-      public java.lang.String getMsgType() {
-        java.lang.Object ref = msgType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          msgType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getMsgTypeValue() {
+        return msgType_;
       }
       /**
-       * <code>string msgType = 1;</code>
+       * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getMsgTypeBytes() {
-        java.lang.Object ref = msgType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          msgType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string msgType = 1;</code>
-       */
-      public Builder setMsgType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setMsgTypeValue(int value) {
         msgType_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string msgType = 1;</code>
+       * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType getMsgType() {
+        cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType result = cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.valueOf(msgType_);
+        return result == null ? cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
+       */
+      public Builder setMsgType(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        msgType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cs6650.kvstore.KvMessage.KvMessageType msgType = 1;</code>
        */
       public Builder clearMsgType() {
         
-        msgType_ = getDefaultInstance().getMsgType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string msgType = 1;</code>
-       */
-      public Builder setMsgTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        msgType_ = value;
+        msgType_ = 0;
         onChanged();
         return this;
       }
@@ -1608,23 +1661,25 @@ public final class KvStoreServiceOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024KvStoreService.proto\022\016cs6650.kvstore\"j" +
-      "\n\tKvMessage\022\017\n\007msgType\030\001 \001(\t\022\013\n\003key\030\002 \001(" +
-      "\t\022\r\n\005value\030\003 \001(\t\022\016\n\006status\030\004 \001(\t\022\017\n\007mess" +
-      "age\030\005 \001(\t\022\017\n\007tpcOpId\030\006 \001(\t\"\007\n\005Empty2\212\003\n\016" +
-      "KvStoreService\022;\n\003put\022\031.cs6650.kvstore.K" +
-      "vMessage\032\031.cs6650.kvstore.KvMessage\022;\n\003g" +
-      "et\022\031.cs6650.kvstore.KvMessage\032\031.cs6650.k" +
-      "vstore.KvMessage\022>\n\006delete\022\031.cs6650.kvst" +
-      "ore.KvMessage\032\031.cs6650.kvstore.KvMessage" +
-      "\022?\n\007prepare\022\031.cs6650.kvstore.KvMessage\032\031",
-      ".cs6650.kvstore.KvMessage\022>\n\006commit\022\031.cs" +
-      "6650.kvstore.KvMessage\032\031.cs6650.kvstore." +
-      "KvMessage\022=\n\005abort\022\031.cs6650.kvstore.KvMe" +
-      "ssage\032\031.cs6650.kvstore.KvMessage2Q\n\021TpcM" +
-      "anagerService\022<\n\010startTpc\022\031.cs6650.kvsto" +
-      "re.KvMessage\032\025.cs6650.kvstore.Emptyb\006pro" +
-      "to3"
+      "\n\024KvStoreService.proto\022\016cs6650.kvstore\"\274" +
+      "\001\n\tKvMessage\0228\n\007msgType\030\001 \001(\0162\'.cs6650.k" +
+      "vstore.KvMessage.KvMessageType\022\013\n\003key\030\002 " +
+      "\001(\t\022\r\n\005value\030\003 \001(\t\022\016\n\006status\030\004 \001(\t\022\017\n\007me" +
+      "ssage\030\005 \001(\t\022\017\n\007tpcOpId\030\006 \001(\t\"\'\n\rKvMessag" +
+      "eType\022\n\n\006getReq\020\000\022\n\n\006getRes\020\001\"\007\n\005Empty2\212" +
+      "\003\n\016KvStoreService\022;\n\003put\022\031.cs6650.kvstor" +
+      "e.KvMessage\032\031.cs6650.kvstore.KvMessage\022;" +
+      "\n\003get\022\031.cs6650.kvstore.KvMessage\032\031.cs665" +
+      "0.kvstore.KvMessage\022>\n\006delete\022\031.cs6650.k",
+      "vstore.KvMessage\032\031.cs6650.kvstore.KvMess" +
+      "age\022?\n\007prepare\022\031.cs6650.kvstore.KvMessag" +
+      "e\032\031.cs6650.kvstore.KvMessage\022>\n\006commit\022\031" +
+      ".cs6650.kvstore.KvMessage\032\031.cs6650.kvsto" +
+      "re.KvMessage\022=\n\005abort\022\031.cs6650.kvstore.K" +
+      "vMessage\032\031.cs6650.kvstore.KvMessage2Q\n\021T" +
+      "pcManagerService\022<\n\010startTpc\022\031.cs6650.kv" +
+      "store.KvMessage\032\025.cs6650.kvstore.Emptyb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

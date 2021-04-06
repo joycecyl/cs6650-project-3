@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class ConfigReader {
+public class ConfigReader {
     private static final String numServerMatchStr = "M(:|=)\\s*(?<numServer>\\d+)";
     private static final String serverInstMatchStr = "server(?<serverId>\\d+)(:|=)\\s*(?<serverPort>\\d+)";
     
     private static final Pattern configMatcher = Pattern.compile(
-            String.format("((%s)|(%s)|(%s)|(%s))\\s*",
+            String.format("((%s)|(%s))\\s*",
                 numServerMatchStr,
                 serverInstMatchStr
             ));
@@ -66,7 +66,7 @@ public final class ConfigReader {
             throw new RuntimeException("Config file is missing one or more required lines!");
         }
 
-        for(int i = 1; i <= numServer; i++) {
+        for(int i = 0; i < numServer; i++) {
             if (!serverPorts.containsKey(i))
                 throw new RuntimeException("Must set port for metadata" + i);
         }
