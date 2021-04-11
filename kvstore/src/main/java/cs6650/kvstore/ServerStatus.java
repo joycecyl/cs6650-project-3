@@ -3,12 +3,16 @@ package cs6650.kvstore;
 public class ServerStatus {
     enum Status {
         Crashed,
-        InGet,
-        // 2pc status
-        Init,
-        Ready,
-        Abort,
-        Commit,
+        // InGet,
+        // // 2pc status
+        // Init,
+        // Ready,
+        // Abort,
+        // Commit,
+
+        // tcp manager status 
+        Busy,
+        Idle,
     }
 
     private Status status;

@@ -8,6 +8,12 @@ message KvMessage {
     enum KvMessageType {
         getReq = 0;
         getRes = 1;
+
+        putReq = 2;
+        putRes = 3;
+
+        deleteReq = 4;
+        deleteRes = 5;
     }
 
     KvMessageType msgType = 1;
@@ -16,9 +22,18 @@ message KvMessage {
     string status = 4;
     string message = 5;
     string tpcOpId = 6; 
+
+    int32 commitIndex = 9;
+
+    int32 clientId = 7;
+
+    bool vote = 8;
+
 }
 
-
+message LogEntries {
+    repeated KvMessage entries = 1;
+}
 
 
 message Empty {
@@ -35,10 +50,12 @@ service KvStoreService {
     rpc prepare(KvMessage) returns (KvMessage);
     rpc commit(KvMessage) returns (KvMessage);
     rpc abort(KvMessage) returns (KvMessage);
+
+    rpc sync(LogEntries) returns (KvMessage);
 }
 
 
 
 service TpcManagerService {
-    rpc startTpc(KvMessage) returns (Empty);
+    rpc startTpc(KvMessage) returns (KvMessage);
 }

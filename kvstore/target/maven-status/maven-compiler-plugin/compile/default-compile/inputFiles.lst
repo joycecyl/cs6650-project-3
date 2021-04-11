@@ -1,5 +1,14 @@
-/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/KvStoreServer.java
-/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/App.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/Client.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/ServerStatus.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/TcpManagerImpl.java
 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/ConfigReader.java
 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/KvStoreServiceImpl.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/target/generated-sources/protobuf/java/cs6650/kvstore/GreetingServiceOuterClass.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/target/generated-sources/protobuf/java/cs6650/kvstore/KvStoreServiceOuterClass.java
 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/TcpManager.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/target/generated-sources/protobuf/grpc-java/cs6650/kvstore/KvStoreServiceGrpc.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/KvStoreServer.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/target/generated-sources/protobuf/grpc-java/cs6650/kvstore/GreetingServiceGrpc.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/target/generated-sources/protobuf/grpc-java/cs6650/kvstore/TpcManagerServiceGrpc.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/Utils.java
+/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/src/main/java/cs6650/kvstore/App.java

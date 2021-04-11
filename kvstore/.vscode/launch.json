@@ -8,7 +8,8 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "args": "${command:SpecifyProgramArgs}"
         },
         {
             "type": "java",
@@ -19,11 +20,65 @@
         },
         {
             "type": "java",
-            "name": "Launch KvStoreServer",
+            "name": "Launch KvStoreServer0",
             "request": "launch",
             "mainClass": "cs6650.kvstore.KvStoreServer",
             "projectName": "kvstore",
             "args": "-n 0 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch KvStoreServer1",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.KvStoreServer",
+            "projectName": "kvstore",
+            "args": "-n 1 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch KvStoreServer2",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.KvStoreServer",
+            "projectName": "kvstore",
+            "args": "-n 2 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch KvStoreServer3",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.KvStoreServer",
+            "projectName": "kvstore",
+            "args": "-n 3 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch KvStoreServer4",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.KvStoreServer",
+            "projectName": "kvstore",
+            "args": "-n 4 /Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch TcpServer",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.TcpManager",
+            "projectName": "kvstore",
+            "args": "/Users/joyceliu/Desktop/6650_all/cs6650-project-3/kvstore/configs/configDistributed.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "cs6650.kvstore.Client",
+            "projectName": "kvstore",
+            "args": "${command:SpecifyProgramArgs}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch KvStore Servers",
+            "configurations": ["Launch KvStoreServer0", "Launch KvStoreServer1", "Launch KvStoreServer2", "Launch KvStoreServer3", "Launch KvStoreServer4", "Launch TcpServer","Launch Client"]
         }
     ]
 }

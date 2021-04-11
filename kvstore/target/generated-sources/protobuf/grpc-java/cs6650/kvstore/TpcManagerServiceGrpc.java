@@ -29,15 +29,15 @@ public final class TpcManagerServiceGrpc {
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
-      cs6650.kvstore.KvStoreServiceOuterClass.Empty> METHOD_START_TPC =
-      io.grpc.MethodDescriptor.<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.Empty>newBuilder()
+      cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> METHOD_START_TPC =
+      io.grpc.MethodDescriptor.<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "cs6650.kvstore.TpcManagerService", "startTpc"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              cs6650.kvstore.KvStoreServiceOuterClass.Empty.getDefaultInstance()))
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
           .build();
 
   /**
@@ -70,7 +70,7 @@ public final class TpcManagerServiceGrpc {
     /**
      */
     public void startTpc(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
-        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.Empty> responseObserver) {
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_START_TPC, responseObserver);
     }
 
@@ -81,7 +81,7 @@ public final class TpcManagerServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
-                cs6650.kvstore.KvStoreServiceOuterClass.Empty>(
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
                   this, METHODID_START_TPC)))
           .build();
     }
@@ -108,7 +108,7 @@ public final class TpcManagerServiceGrpc {
     /**
      */
     public void startTpc(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
-        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.Empty> responseObserver) {
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_START_TPC, getCallOptions()), request, responseObserver);
     }
@@ -134,7 +134,7 @@ public final class TpcManagerServiceGrpc {
 
     /**
      */
-    public cs6650.kvstore.KvStoreServiceOuterClass.Empty startTpc(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage startTpc(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
       return blockingUnaryCall(
           getChannel(), METHOD_START_TPC, getCallOptions(), request);
     }
@@ -160,7 +160,7 @@ public final class TpcManagerServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<cs6650.kvstore.KvStoreServiceOuterClass.Empty> startTpc(
+    public com.google.common.util.concurrent.ListenableFuture<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> startTpc(
         cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_START_TPC, getCallOptions()), request);
@@ -188,7 +188,7 @@ public final class TpcManagerServiceGrpc {
       switch (methodId) {
         case METHODID_START_TPC:
           serviceImpl.startTpc((cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) request,
-              (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.Empty>) responseObserver);
+              (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
           break;
         default:
           throw new AssertionError();

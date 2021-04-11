@@ -76,6 +76,21 @@ public final class KvStoreServiceOuterClass {
      */
     com.google.protobuf.ByteString
         getTpcOpIdBytes();
+
+    /**
+     * <code>int32 commitIndex = 9;</code>
+     */
+    int getCommitIndex();
+
+    /**
+     * <code>int32 clientId = 7;</code>
+     */
+    int getClientId();
+
+    /**
+     * <code>bool vote = 8;</code>
+     */
+    boolean getVote();
   }
   /**
    * Protobuf type {@code cs6650.kvstore.KvMessage}
@@ -95,6 +110,9 @@ public final class KvStoreServiceOuterClass {
       status_ = "";
       message_ = "";
       tpcOpId_ = "";
+      commitIndex_ = 0;
+      clientId_ = 0;
+      vote_ = false;
     }
 
     @java.lang.Override
@@ -158,6 +176,21 @@ public final class KvStoreServiceOuterClass {
               tpcOpId_ = s;
               break;
             }
+            case 56: {
+
+              clientId_ = input.readInt32();
+              break;
+            }
+            case 64: {
+
+              vote_ = input.readBool();
+              break;
+            }
+            case 72: {
+
+              commitIndex_ = input.readInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -194,6 +227,22 @@ public final class KvStoreServiceOuterClass {
        * <code>getRes = 1;</code>
        */
       getRes(1),
+      /**
+       * <code>putReq = 2;</code>
+       */
+      putReq(2),
+      /**
+       * <code>putRes = 3;</code>
+       */
+      putRes(3),
+      /**
+       * <code>deleteReq = 4;</code>
+       */
+      deleteReq(4),
+      /**
+       * <code>deleteRes = 5;</code>
+       */
+      deleteRes(5),
       UNRECOGNIZED(-1),
       ;
 
@@ -205,6 +254,22 @@ public final class KvStoreServiceOuterClass {
        * <code>getRes = 1;</code>
        */
       public static final int getRes_VALUE = 1;
+      /**
+       * <code>putReq = 2;</code>
+       */
+      public static final int putReq_VALUE = 2;
+      /**
+       * <code>putRes = 3;</code>
+       */
+      public static final int putRes_VALUE = 3;
+      /**
+       * <code>deleteReq = 4;</code>
+       */
+      public static final int deleteReq_VALUE = 4;
+      /**
+       * <code>deleteRes = 5;</code>
+       */
+      public static final int deleteRes_VALUE = 5;
 
 
       public final int getNumber() {
@@ -227,6 +292,10 @@ public final class KvStoreServiceOuterClass {
         switch (value) {
           case 0: return getReq;
           case 1: return getRes;
+          case 2: return putReq;
+          case 3: return putRes;
+          case 4: return deleteReq;
+          case 5: return deleteRes;
           default: return null;
         }
       }
@@ -465,6 +534,33 @@ public final class KvStoreServiceOuterClass {
       }
     }
 
+    public static final int COMMITINDEX_FIELD_NUMBER = 9;
+    private int commitIndex_;
+    /**
+     * <code>int32 commitIndex = 9;</code>
+     */
+    public int getCommitIndex() {
+      return commitIndex_;
+    }
+
+    public static final int CLIENTID_FIELD_NUMBER = 7;
+    private int clientId_;
+    /**
+     * <code>int32 clientId = 7;</code>
+     */
+    public int getClientId() {
+      return clientId_;
+    }
+
+    public static final int VOTE_FIELD_NUMBER = 8;
+    private boolean vote_;
+    /**
+     * <code>bool vote = 8;</code>
+     */
+    public boolean getVote() {
+      return vote_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -495,6 +591,15 @@ public final class KvStoreServiceOuterClass {
       if (!getTpcOpIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, tpcOpId_);
       }
+      if (clientId_ != 0) {
+        output.writeInt32(7, clientId_);
+      }
+      if (vote_ != false) {
+        output.writeBool(8, vote_);
+      }
+      if (commitIndex_ != 0) {
+        output.writeInt32(9, commitIndex_);
+      }
     }
 
     public int getSerializedSize() {
@@ -520,6 +625,18 @@ public final class KvStoreServiceOuterClass {
       }
       if (!getTpcOpIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, tpcOpId_);
+      }
+      if (clientId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, clientId_);
+      }
+      if (vote_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(8, vote_);
+      }
+      if (commitIndex_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, commitIndex_);
       }
       memoizedSize = size;
       return size;
@@ -548,6 +665,12 @@ public final class KvStoreServiceOuterClass {
           .equals(other.getMessage());
       result = result && getTpcOpId()
           .equals(other.getTpcOpId());
+      result = result && (getCommitIndex()
+          == other.getCommitIndex());
+      result = result && (getClientId()
+          == other.getClientId());
+      result = result && (getVote()
+          == other.getVote());
       return result;
     }
 
@@ -570,6 +693,13 @@ public final class KvStoreServiceOuterClass {
       hash = (53 * hash) + getMessage().hashCode();
       hash = (37 * hash) + TPCOPID_FIELD_NUMBER;
       hash = (53 * hash) + getTpcOpId().hashCode();
+      hash = (37 * hash) + COMMITINDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getCommitIndex();
+      hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
+      hash = (53 * hash) + getClientId();
+      hash = (37 * hash) + VOTE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getVote());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -711,6 +841,12 @@ public final class KvStoreServiceOuterClass {
 
         tpcOpId_ = "";
 
+        commitIndex_ = 0;
+
+        clientId_ = 0;
+
+        vote_ = false;
+
         return this;
       }
 
@@ -739,6 +875,9 @@ public final class KvStoreServiceOuterClass {
         result.status_ = status_;
         result.message_ = message_;
         result.tpcOpId_ = tpcOpId_;
+        result.commitIndex_ = commitIndex_;
+        result.clientId_ = clientId_;
+        result.vote_ = vote_;
         onBuilt();
         return result;
       }
@@ -802,6 +941,15 @@ public final class KvStoreServiceOuterClass {
         if (!other.getTpcOpId().isEmpty()) {
           tpcOpId_ = other.tpcOpId_;
           onChanged();
+        }
+        if (other.getCommitIndex() != 0) {
+          setCommitIndex(other.getCommitIndex());
+        }
+        if (other.getClientId() != 0) {
+          setClientId(other.getClientId());
+        }
+        if (other.getVote() != false) {
+          setVote(other.getVote());
         }
         onChanged();
         return this;
@@ -1217,6 +1365,84 @@ public final class KvStoreServiceOuterClass {
         onChanged();
         return this;
       }
+
+      private int commitIndex_ ;
+      /**
+       * <code>int32 commitIndex = 9;</code>
+       */
+      public int getCommitIndex() {
+        return commitIndex_;
+      }
+      /**
+       * <code>int32 commitIndex = 9;</code>
+       */
+      public Builder setCommitIndex(int value) {
+        
+        commitIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 commitIndex = 9;</code>
+       */
+      public Builder clearCommitIndex() {
+        
+        commitIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int clientId_ ;
+      /**
+       * <code>int32 clientId = 7;</code>
+       */
+      public int getClientId() {
+        return clientId_;
+      }
+      /**
+       * <code>int32 clientId = 7;</code>
+       */
+      public Builder setClientId(int value) {
+        
+        clientId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 clientId = 7;</code>
+       */
+      public Builder clearClientId() {
+        
+        clientId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean vote_ ;
+      /**
+       * <code>bool vote = 8;</code>
+       */
+      public boolean getVote() {
+        return vote_;
+      }
+      /**
+       * <code>bool vote = 8;</code>
+       */
+      public Builder setVote(boolean value) {
+        
+        vote_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool vote = 8;</code>
+       */
+      public Builder clearVote() {
+        
+        vote_ = false;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1261,6 +1487,752 @@ public final class KvStoreServiceOuterClass {
     }
 
     public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LogEntriesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cs6650.kvstore.LogEntries)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> 
+        getEntriesList();
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    cs6650.kvstore.KvStoreServiceOuterClass.KvMessage getEntries(int index);
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    int getEntriesCount();
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    java.util.List<? extends cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder> 
+        getEntriesOrBuilderList();
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder getEntriesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code cs6650.kvstore.LogEntries}
+   */
+  public  static final class LogEntries extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cs6650.kvstore.LogEntries)
+      LogEntriesOrBuilder {
+    // Use LogEntries.newBuilder() to construct.
+    private LogEntries(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LogEntries() {
+      entries_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private LogEntries(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                entries_ = new java.util.ArrayList<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              entries_.add(
+                  input.readMessage(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          entries_ = java.util.Collections.unmodifiableList(entries_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cs6650.kvstore.KvStoreServiceOuterClass.internal_static_cs6650_kvstore_LogEntries_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cs6650.kvstore.KvStoreServiceOuterClass.internal_static_cs6650_kvstore_LogEntries_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.class, cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.Builder.class);
+    }
+
+    public static final int ENTRIES_FIELD_NUMBER = 1;
+    private java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> entries_;
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    public java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> getEntriesList() {
+      return entries_;
+    }
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    public java.util.List<? extends cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder> 
+        getEntriesOrBuilderList() {
+      return entries_;
+    }
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    public int getEntriesCount() {
+      return entries_.size();
+    }
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage getEntries(int index) {
+      return entries_.get(index);
+    }
+    /**
+     * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+     */
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder getEntriesOrBuilder(
+        int index) {
+      return entries_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < entries_.size(); i++) {
+        output.writeMessage(1, entries_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < entries_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, entries_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cs6650.kvstore.KvStoreServiceOuterClass.LogEntries)) {
+        return super.equals(obj);
+      }
+      cs6650.kvstore.KvStoreServiceOuterClass.LogEntries other = (cs6650.kvstore.KvStoreServiceOuterClass.LogEntries) obj;
+
+      boolean result = true;
+      result = result && getEntriesList()
+          .equals(other.getEntriesList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getEntriesCount() > 0) {
+        hash = (37 * hash) + ENTRIES_FIELD_NUMBER;
+        hash = (53 * hash) + getEntriesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cs6650.kvstore.KvStoreServiceOuterClass.LogEntries prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code cs6650.kvstore.LogEntries}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cs6650.kvstore.LogEntries)
+        cs6650.kvstore.KvStoreServiceOuterClass.LogEntriesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cs6650.kvstore.KvStoreServiceOuterClass.internal_static_cs6650_kvstore_LogEntries_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cs6650.kvstore.KvStoreServiceOuterClass.internal_static_cs6650_kvstore_LogEntries_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.class, cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.Builder.class);
+      }
+
+      // Construct using cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getEntriesFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (entriesBuilder_ == null) {
+          entries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          entriesBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cs6650.kvstore.KvStoreServiceOuterClass.internal_static_cs6650_kvstore_LogEntries_descriptor;
+      }
+
+      public cs6650.kvstore.KvStoreServiceOuterClass.LogEntries getDefaultInstanceForType() {
+        return cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.getDefaultInstance();
+      }
+
+      public cs6650.kvstore.KvStoreServiceOuterClass.LogEntries build() {
+        cs6650.kvstore.KvStoreServiceOuterClass.LogEntries result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cs6650.kvstore.KvStoreServiceOuterClass.LogEntries buildPartial() {
+        cs6650.kvstore.KvStoreServiceOuterClass.LogEntries result = new cs6650.kvstore.KvStoreServiceOuterClass.LogEntries(this);
+        int from_bitField0_ = bitField0_;
+        if (entriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            entries_ = java.util.Collections.unmodifiableList(entries_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.entries_ = entries_;
+        } else {
+          result.entries_ = entriesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cs6650.kvstore.KvStoreServiceOuterClass.LogEntries) {
+          return mergeFrom((cs6650.kvstore.KvStoreServiceOuterClass.LogEntries)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cs6650.kvstore.KvStoreServiceOuterClass.LogEntries other) {
+        if (other == cs6650.kvstore.KvStoreServiceOuterClass.LogEntries.getDefaultInstance()) return this;
+        if (entriesBuilder_ == null) {
+          if (!other.entries_.isEmpty()) {
+            if (entries_.isEmpty()) {
+              entries_ = other.entries_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEntriesIsMutable();
+              entries_.addAll(other.entries_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.entries_.isEmpty()) {
+            if (entriesBuilder_.isEmpty()) {
+              entriesBuilder_.dispose();
+              entriesBuilder_ = null;
+              entries_ = other.entries_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              entriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEntriesFieldBuilder() : null;
+            } else {
+              entriesBuilder_.addAllMessages(other.entries_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cs6650.kvstore.KvStoreServiceOuterClass.LogEntries parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cs6650.kvstore.KvStoreServiceOuterClass.LogEntries) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> entries_ =
+        java.util.Collections.emptyList();
+      private void ensureEntriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          entries_ = new java.util.ArrayList<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(entries_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder, cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder> entriesBuilder_;
+
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> getEntriesList() {
+        if (entriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(entries_);
+        } else {
+          return entriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public int getEntriesCount() {
+        if (entriesBuilder_ == null) {
+          return entries_.size();
+        } else {
+          return entriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage getEntries(int index) {
+        if (entriesBuilder_ == null) {
+          return entries_.get(index);
+        } else {
+          return entriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder setEntries(
+          int index, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage value) {
+        if (entriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEntriesIsMutable();
+          entries_.set(index, value);
+          onChanged();
+        } else {
+          entriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder setEntries(
+          int index, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          entriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder addEntries(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage value) {
+        if (entriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEntriesIsMutable();
+          entries_.add(value);
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder addEntries(
+          int index, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage value) {
+        if (entriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEntriesIsMutable();
+          entries_.add(index, value);
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder addEntries(
+          cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.add(builderForValue.build());
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder addEntries(
+          int index, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder addAllEntries(
+          java.lang.Iterable<? extends cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> values) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, entries_);
+          onChanged();
+        } else {
+          entriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder clearEntries() {
+        if (entriesBuilder_ == null) {
+          entries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          entriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public Builder removeEntries(int index) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.remove(index);
+          onChanged();
+        } else {
+          entriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder getEntriesBuilder(
+          int index) {
+        return getEntriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder getEntriesOrBuilder(
+          int index) {
+        if (entriesBuilder_ == null) {
+          return entries_.get(index);  } else {
+          return entriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public java.util.List<? extends cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder> 
+           getEntriesOrBuilderList() {
+        if (entriesBuilder_ != null) {
+          return entriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(entries_);
+        }
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder addEntriesBuilder() {
+        return getEntriesFieldBuilder().addBuilder(
+            cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder addEntriesBuilder(
+          int index) {
+        return getEntriesFieldBuilder().addBuilder(
+            index, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cs6650.kvstore.KvMessage entries = 1;</code>
+       */
+      public java.util.List<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder> 
+           getEntriesBuilderList() {
+        return getEntriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder, cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder> 
+          getEntriesFieldBuilder() {
+        if (entriesBuilder_ == null) {
+          entriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.Builder, cs6650.kvstore.KvStoreServiceOuterClass.KvMessageOrBuilder>(
+                  entries_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          entries_ = null;
+        }
+        return entriesBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cs6650.kvstore.LogEntries)
+    }
+
+    // @@protoc_insertion_point(class_scope:cs6650.kvstore.LogEntries)
+    private static final cs6650.kvstore.KvStoreServiceOuterClass.LogEntries DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cs6650.kvstore.KvStoreServiceOuterClass.LogEntries();
+    }
+
+    public static cs6650.kvstore.KvStoreServiceOuterClass.LogEntries getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LogEntries>
+        PARSER = new com.google.protobuf.AbstractParser<LogEntries>() {
+      public LogEntries parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LogEntries(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LogEntries> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LogEntries> getParserForType() {
+      return PARSER;
+    }
+
+    public cs6650.kvstore.KvStoreServiceOuterClass.LogEntries getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1648,6 +2620,11 @@ public final class KvStoreServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cs6650_kvstore_KvMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cs6650_kvstore_LogEntries_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cs6650_kvstore_LogEntries_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cs6650_kvstore_Empty_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -1661,25 +2638,30 @@ public final class KvStoreServiceOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024KvStoreService.proto\022\016cs6650.kvstore\"\274" +
-      "\001\n\tKvMessage\0228\n\007msgType\030\001 \001(\0162\'.cs6650.k" +
+      "\n\024KvStoreService.proto\022\016cs6650.kvstore\"\247" +
+      "\002\n\tKvMessage\0228\n\007msgType\030\001 \001(\0162\'.cs6650.k" +
       "vstore.KvMessage.KvMessageType\022\013\n\003key\030\002 " +
       "\001(\t\022\r\n\005value\030\003 \001(\t\022\016\n\006status\030\004 \001(\t\022\017\n\007me" +
-      "ssage\030\005 \001(\t\022\017\n\007tpcOpId\030\006 \001(\t\"\'\n\rKvMessag" +
-      "eType\022\n\n\006getReq\020\000\022\n\n\006getRes\020\001\"\007\n\005Empty2\212" +
-      "\003\n\016KvStoreService\022;\n\003put\022\031.cs6650.kvstor" +
-      "e.KvMessage\032\031.cs6650.kvstore.KvMessage\022;" +
-      "\n\003get\022\031.cs6650.kvstore.KvMessage\032\031.cs665" +
-      "0.kvstore.KvMessage\022>\n\006delete\022\031.cs6650.k",
+      "ssage\030\005 \001(\t\022\017\n\007tpcOpId\030\006 \001(\t\022\023\n\013commitIn" +
+      "dex\030\t \001(\005\022\020\n\010clientId\030\007 \001(\005\022\014\n\004vote\030\010 \001(" +
+      "\010\"]\n\rKvMessageType\022\n\n\006getReq\020\000\022\n\n\006getRes" +
+      "\020\001\022\n\n\006putReq\020\002\022\n\n\006putRes\020\003\022\r\n\tdeleteReq\020" +
+      "\004\022\r\n\tdeleteRes\020\005\"8\n\nLogEntries\022*\n\007entrie" +
+      "s\030\001 \003(\0132\031.cs6650.kvstore.KvMessage\"\007\n\005Em",
+      "pty2\311\003\n\016KvStoreService\022;\n\003put\022\031.cs6650.k" +
       "vstore.KvMessage\032\031.cs6650.kvstore.KvMess" +
-      "age\022?\n\007prepare\022\031.cs6650.kvstore.KvMessag" +
-      "e\032\031.cs6650.kvstore.KvMessage\022>\n\006commit\022\031" +
-      ".cs6650.kvstore.KvMessage\032\031.cs6650.kvsto" +
-      "re.KvMessage\022=\n\005abort\022\031.cs6650.kvstore.K" +
-      "vMessage\032\031.cs6650.kvstore.KvMessage2Q\n\021T" +
-      "pcManagerService\022<\n\010startTpc\022\031.cs6650.kv" +
-      "store.KvMessage\032\025.cs6650.kvstore.Emptyb\006" +
-      "proto3"
+      "age\022;\n\003get\022\031.cs6650.kvstore.KvMessage\032\031." +
+      "cs6650.kvstore.KvMessage\022>\n\006delete\022\031.cs6" +
+      "650.kvstore.KvMessage\032\031.cs6650.kvstore.K" +
+      "vMessage\022?\n\007prepare\022\031.cs6650.kvstore.KvM" +
+      "essage\032\031.cs6650.kvstore.KvMessage\022>\n\006com" +
+      "mit\022\031.cs6650.kvstore.KvMessage\032\031.cs6650." +
+      "kvstore.KvMessage\022=\n\005abort\022\031.cs6650.kvst" +
+      "ore.KvMessage\032\031.cs6650.kvstore.KvMessage",
+      "\022=\n\004sync\022\032.cs6650.kvstore.LogEntries\032\031.c" +
+      "s6650.kvstore.KvMessage2U\n\021TpcManagerSer" +
+      "vice\022@\n\010startTpc\022\031.cs6650.kvstore.KvMess" +
+      "age\032\031.cs6650.kvstore.KvMessageb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1698,9 +2680,15 @@ public final class KvStoreServiceOuterClass {
     internal_static_cs6650_kvstore_KvMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cs6650_kvstore_KvMessage_descriptor,
-        new java.lang.String[] { "MsgType", "Key", "Value", "Status", "Message", "TpcOpId", });
-    internal_static_cs6650_kvstore_Empty_descriptor =
+        new java.lang.String[] { "MsgType", "Key", "Value", "Status", "Message", "TpcOpId", "CommitIndex", "ClientId", "Vote", });
+    internal_static_cs6650_kvstore_LogEntries_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_cs6650_kvstore_LogEntries_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cs6650_kvstore_LogEntries_descriptor,
+        new java.lang.String[] { "Entries", });
+    internal_static_cs6650_kvstore_Empty_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_cs6650_kvstore_Empty_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cs6650_kvstore_Empty_descriptor,

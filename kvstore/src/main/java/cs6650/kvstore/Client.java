@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import cs6650.kvstore.KvStoreServiceGrpc.KvStoreServiceBlockingStub;
 import cs6650.kvstore.KvStoreServiceOuterClass.KvMessage;
+import cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.KvMessageType;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -13,14 +14,18 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 public class Client {
 
-    private static Namespace parseArgs(String[] args) {
-        ArgumentParser parser = ArgumentParsers.newFor("KvStoreServer").build()
-                .description("KvStoreServer server for KvStore");
+    private int clientId;
 
-        parser.addArgument("-p", "--port").type(Integer.class).setDefault(1)
+    private static Namespace parseArgs(String[] args) {
+        ArgumentParser parser = ArgumentParsers.newFor("Client").build()
+                .description("Client for KvStore");
+
+        parser.addArgument("-p", "--port").type(Integer.class).setDefault(8390)
                 .help("Set which port this client is");
-        parser.addArgument("-a", "--address").type(Integer.class).setDefault(10)
+        parser.addArgument("-a", "--address").type(Integer.class).setDefault("127.0.0.1")
                 .help("address");
+        parser.addArgument("-i", "--id").type(Integer.class).setDefault(0)
+                .help("client id");
 
         Namespace res = null;
         try {
@@ -36,14 +41,18 @@ public class Client {
         Namespace c_args = parseArgs(args);
         String ip = c_args.getString("address");
         int port = c_args.getInt("port");
+        int clientId = c_args.get("id");
         if (port < 0) {
             System.out.println(String.format("Input invalid port %s: port should be in range of 0 -- 60000", String.valueOf(port)));
             return;
         }
-        String target = String.format("%s:%d", ip, port);
+
+        System.out.println(ip);
+        System.out.println(port);
+        System.out.println("connecting to " + ip + ":"+ port);
       // Channel is the abstraction to connect to a service endpoint
       // Let's use plaintext communication because we don't have certs
-      final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).build();
+      final ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, port).usePlaintext(true).build();
       KvStoreServiceBlockingStub stub = KvStoreServiceGrpc.newBlockingStub(channel);
 
       String op = "";
@@ -96,9 +105,9 @@ public class Client {
     //         }
     //         System.out.println(message);
     //   }
-
+      System.out.println("Usage: put <key> <value>\n" + "       get <key>\n" + "       delete <key>");
       while (!op.equalsIgnoreCase("quit")) {
-            System.out.println("Usage: put <key> <value>\n" + "       get <key>\n" + "       delete <key>");
+            System.out.println();
             System.out.print("Enter input: ");
             input = new Scanner(System.in).nextLine();
             String[] strs = input.split(" ");
@@ -135,7 +144,7 @@ public class Client {
             if (op.equalsIgnoreCase("put")) {
                 KvMessage request =
                 KvMessage.newBuilder()
-                .setKey(key).setValue(val)
+                .setKey(key).setValue(val).setMsgType(KvMessageType.putReq)
                 .build();
 
                 KvMessage response = stub.put(request);
@@ -144,7 +153,7 @@ public class Client {
             } else if (op.equalsIgnoreCase("get")) { 
                 KvMessage request =
                 KvMessage.newBuilder()
-                .setKey(key)
+                .setKey(key).setClientId(clientId).setMsgType(KvMessageType.getReq)
                 .build();
 
                 KvMessage response = stub.get(request);
@@ -152,7 +161,7 @@ public class Client {
             } else if (op.equalsIgnoreCase("delete")) {
                 KvMessage request =
                 KvMessage.newBuilder()
-                .setKey(key)
+                .setKey(key).setMsgType(KvMessageType.deleteReq)
                 .build();
 
                 KvMessage response = stub.delete(request);
