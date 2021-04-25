@@ -111,6 +111,30 @@ public final class KvStoreServiceGrpc {
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
           .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+      cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> METHOD_START_PAXOS =
+      io.grpc.MethodDescriptor.<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "cs6650.kvstore.KvStoreService", "startPaxos"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+      cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> METHOD_ACCEPT =
+      io.grpc.MethodDescriptor.<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "cs6650.kvstore.KvStoreService", "accept"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .build();
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -191,6 +215,23 @@ public final class KvStoreServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_SYNC, responseObserver);
     }
 
+    /**
+     * <pre>
+     * Paxos rpc
+     * </pre>
+     */
+    public void startPaxos(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_START_PAXOS, responseObserver);
+    }
+
+    /**
+     */
+    public void accept(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_ACCEPT, responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -242,6 +283,20 @@ public final class KvStoreServiceGrpc {
                 cs6650.kvstore.KvStoreServiceOuterClass.LogEntries,
                 cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
                   this, METHODID_SYNC)))
+          .addMethod(
+            METHOD_START_PAXOS,
+            asyncUnaryCall(
+              new MethodHandlers<
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
+                  this, METHODID_START_PAXOS)))
+          .addMethod(
+            METHOD_ACCEPT,
+            asyncUnaryCall(
+              new MethodHandlers<
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
+                  this, METHODID_ACCEPT)))
           .build();
     }
   }
@@ -322,6 +377,25 @@ public final class KvStoreServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_SYNC, getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Paxos rpc
+     * </pre>
+     */
+    public void startPaxos(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_START_PAXOS, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void accept(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ACCEPT, getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -392,6 +466,23 @@ public final class KvStoreServiceGrpc {
     public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage sync(cs6650.kvstore.KvStoreServiceOuterClass.LogEntries request) {
       return blockingUnaryCall(
           getChannel(), METHOD_SYNC, getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Paxos rpc
+     * </pre>
+     */
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage startPaxos(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_START_PAXOS, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage accept(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_ACCEPT, getCallOptions(), request);
     }
   }
 
@@ -471,6 +562,25 @@ public final class KvStoreServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_SYNC, getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Paxos rpc
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> startPaxos(
+        cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_START_PAXOS, getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> accept(
+        cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ACCEPT, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PUT = 0;
@@ -480,6 +590,8 @@ public final class KvStoreServiceGrpc {
   private static final int METHODID_COMMIT = 4;
   private static final int METHODID_ABORT = 5;
   private static final int METHODID_SYNC = 6;
+  private static final int METHODID_START_PAXOS = 7;
+  private static final int METHODID_ACCEPT = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -526,6 +638,14 @@ public final class KvStoreServiceGrpc {
           serviceImpl.sync((cs6650.kvstore.KvStoreServiceOuterClass.LogEntries) request,
               (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
           break;
+        case METHODID_START_PAXOS:
+          serviceImpl.startPaxos((cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) request,
+              (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
+          break;
+        case METHODID_ACCEPT:
+          serviceImpl.accept((cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) request,
+              (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -566,6 +686,8 @@ public final class KvStoreServiceGrpc {
               .addMethod(METHOD_COMMIT)
               .addMethod(METHOD_ABORT)
               .addMethod(METHOD_SYNC)
+              .addMethod(METHOD_START_PAXOS)
+              .addMethod(METHOD_ACCEPT)
               .build();
         }
       }

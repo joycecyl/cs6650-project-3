@@ -2648,7 +2648,7 @@ public final class KvStoreServiceOuterClass {
       "\020\001\022\n\n\006putReq\020\002\022\n\n\006putRes\020\003\022\r\n\tdeleteReq\020" +
       "\004\022\r\n\tdeleteRes\020\005\"8\n\nLogEntries\022*\n\007entrie" +
       "s\030\001 \003(\0132\031.cs6650.kvstore.KvMessage\"\007\n\005Em",
-      "pty2\311\003\n\016KvStoreService\022;\n\003put\022\031.cs6650.k" +
+      "pty2\315\004\n\016KvStoreService\022;\n\003put\022\031.cs6650.k" +
       "vstore.KvMessage\032\031.cs6650.kvstore.KvMess" +
       "age\022;\n\003get\022\031.cs6650.kvstore.KvMessage\032\031." +
       "cs6650.kvstore.KvMessage\022>\n\006delete\022\031.cs6" +
@@ -2659,9 +2659,13 @@ public final class KvStoreServiceOuterClass {
       "kvstore.KvMessage\022=\n\005abort\022\031.cs6650.kvst" +
       "ore.KvMessage\032\031.cs6650.kvstore.KvMessage",
       "\022=\n\004sync\022\032.cs6650.kvstore.LogEntries\032\031.c" +
-      "s6650.kvstore.KvMessage2U\n\021TpcManagerSer" +
-      "vice\022@\n\010startTpc\022\031.cs6650.kvstore.KvMess" +
-      "age\032\031.cs6650.kvstore.KvMessageb\006proto3"
+      "s6650.kvstore.KvMessage\022B\n\nstartPaxos\022\031." +
+      "cs6650.kvstore.KvMessage\032\031.cs6650.kvstor" +
+      "e.KvMessage\022>\n\006accept\022\031.cs6650.kvstore.K" +
+      "vMessage\032\031.cs6650.kvstore.KvMessage2U\n\021T" +
+      "pcManagerService\022@\n\010startTpc\022\031.cs6650.kv" +
+      "store.KvMessage\032\031.cs6650.kvstore.KvMessa" +
+      "geb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

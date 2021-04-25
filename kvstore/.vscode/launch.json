@@ -78,7 +78,7 @@
     "compounds": [
         {
             "name": "Launch KvStore Servers",
-            "configurations": ["Launch KvStoreServer0", "Launch KvStoreServer1", "Launch KvStoreServer2", "Launch KvStoreServer3", "Launch KvStoreServer4", "Launch TcpServer","Launch Client"]
+            "configurations": ["Launch KvStoreServer0", "Launch KvStoreServer1", "Launch KvStoreServer2", "Launch KvStoreServer3", "Launch KvStoreServer4","Launch Client"]
         }
     ]
 }
