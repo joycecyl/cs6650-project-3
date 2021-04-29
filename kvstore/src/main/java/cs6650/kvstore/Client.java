@@ -60,51 +60,52 @@ public class Client {
       String val = null;
       String input = "";
 
-    //   String [] inputDefaultArray = {"put one 1", "put two 2", "put three 3", "put four 4", "put five 5",
-    //                                  "get one", "get two", "get three", "get four", "get five",
-    //                                  "delete one", "delete two", "delete three", "delete four", "delete five"};
+      String [] inputDefaultArray = {"put one 1", "put two 2", "put three 3", "put four 4", "put five 5",
+                                     "get one", "get two", "get three", "get four", "get five",
+                                     "delete one", "delete two", "delete three", "delete four", "delete five"};
 
-    //   for (int i = 0; i < 15; i++) {
-    //         input = inputDefaultArray[i];
-    //         String[] strs = input.split(" ");
-    //         String message = "";
+      for (int i = 0; i < inputDefaultArray.length; i++) {
+            input = inputDefaultArray[i];
+            String[] strs = input.split(" ");
+            String message = "";
             
-    //         op = strs[0];
-    //         key = strs[1];
-    //         val = null;
-    //         if (strs.length > 2) {
-    //             val = strs[2];
-    //         }
+            op = strs[0];
+            key = strs[1];
+            val = null;
+            if (strs.length > 2) {
+                val = strs[2];
+            }
 
-    //         // update data based on operation
-    //         if (op.equalsIgnoreCase("put")) {
-    //             KvMessage request =
-    //             KvMessage.newBuilder()
-    //             .setKey(key).setValue(val)
-    //             .build();
+            // update data based on operation
+            if (op.equalsIgnoreCase("put")) {
+                KvMessage request =
+                KvMessage.newBuilder()
+                .setKey(key).setValue(val).setMsgType(KvMessageType.putReq)
+                .build();
 
-    //             KvMessage response = stub.put(request);
-    //             message = response.getMessage();
+                KvMessage response = stub.put(request);
+                message = response.getMessage();
 
-    //         } else if (op.equalsIgnoreCase("get")) { 
-    //             KvMessage request =
-    //             KvMessage.newBuilder()
-    //             .setKey(key)
-    //             .build();
+            } else if (op.equalsIgnoreCase("get")) { 
+                KvMessage request =
+                KvMessage.newBuilder()
+                .setKey(key).setMsgType(KvMessageType.getReq)
+                .build();
 
-    //             KvMessage response = stub.get(request);
-    //             message = response.getMessage();
-    //         } else if (op.equalsIgnoreCase("delete")) {
-    //             KvMessage request =
-    //             KvMessage.newBuilder()
-    //             .setKey(key)
-    //             .build();
+                KvMessage response = stub.get(request);
+                message = response.getMessage();
+            } else if (op.equalsIgnoreCase("delete")) {
+                KvMessage request =
+                KvMessage.newBuilder()
+                .setKey(key).setMsgType(KvMessageType.deleteReq)
+                .build();
 
-    //             KvMessage response = stub.delete(request);
-    //             message = response.getMessage();
-    //         }
-    //         System.out.println(message);
-    //   }
+                KvMessage response = stub.delete(request);
+                message = response.getMessage();
+            }
+            System.out.println(message);
+      }
+
       System.out.println("Usage: put <key> <value>\n" + "       get <key>\n" + "       delete <key>");
       while (!op.equalsIgnoreCase("quit")) {
             System.out.println();

@@ -61,12 +61,13 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
         Utils.println(String.format("This Server status:  %s..........Leader in cluster: Server%d", isCrashed ? "Crash" : "Running", proposerId));
         //if (servNum == proposerId) return;
         
-        if (n > 6 && !isCrashed) {
-            crash();
+        if (n > 3) {
+            if (!isCrashed)
+                crash();
+            else
+                reboot();
         }
-        if (isCrashed) {
-            reboot();
-        }
+
     }
 
 
@@ -108,7 +109,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
     }
 
     private void randomCrashJob() {
-        daemonExecutor.scheduleAtFixedRate(this::randomCrash, 4000, 4000, TimeUnit.MILLISECONDS);
+        daemonExecutor.scheduleAtFixedRate(this::randomCrash, 5000, 5000, TimeUnit.MILLISECONDS);
     }
 
     private void leaderElectionJob() {
@@ -312,11 +313,13 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             res = startPaxos(request);
         }
         
+        KvMessage response = KvMessage.newBuilder().setKey(request.getKey()).setValue(request.getValue()).
+                                        setMessage(String.format("Finish put <%s, %s>", request.getKey(), request.getValue())).build();
 
 
-        System.out.println(res.getMessage());
+        System.out.println(response.getMessage());
 
-        responseObserver.onNext(res);
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 
@@ -376,10 +379,12 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             res = startPaxos(request);
         }
 
+        KvMessage response = KvMessage.newBuilder().setKey(request.getKey()).setValue(request.getValue()).
+                                        setMessage(String.format("Finish delete <%s>", request.getKey())).build();
 
-        System.out.println(res.getMessage());
+        System.out.println(response.getMessage());
 
-        responseObserver.onNext(res);
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 
