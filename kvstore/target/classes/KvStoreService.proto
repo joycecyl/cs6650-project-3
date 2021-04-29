@@ -56,7 +56,10 @@ service KvStoreService {
     // Paxos rpc
     rpc startPaxos(KvMessage) returns (KvMessage);
     rpc accept(KvMessage) returns (KvMessage);
-
+    //leader election
+    rpc bully(KvMessage) returns (KvMessage);
+    //sendNextIndex
+    
 }
 
 

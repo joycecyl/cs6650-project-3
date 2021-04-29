@@ -43,7 +43,34 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
     private String START_TPC_REQUEST_TEMPLATE_STRING = "[%s]: Received %s from Client%d, starting 2pc";
     private static String GET_RESPONSE_MESSAGE_TEMPLATE = "[%s]: Get %s as <%s, %s> from KvStoreServer%s(127.0.0.0:%s)";
     private static String INFO_TMPLATE = "[%s]: %s";
-   
+    
+    public void crash() {
+        Utils.println(String.format("Server is down.........."));
+        isCrashed = true;
+    }
+
+    public void reboot() {
+        Utils.println(String.format("Server is reboot.........."));
+        isCrashed = false;
+        appliedIndex = 0;
+    }
+
+    public void randomCrash() {
+        Random rd = new Random();
+        int n = rd.nextInt(10);
+        Utils.println(String.format("This Server status:  %s..........Leader in cluster: Server%d", isCrashed ? "Crash" : "Running", proposerId));
+        //if (servNum == proposerId) return;
+        
+        if (n > 6 && !isCrashed) {
+            crash();
+        }
+        if (isCrashed) {
+            reboot();
+        }
+    }
+
+
+
     public KvStoreServiceImpl(ConfigReader config, int servNum) {
         this.numKvStoreServer = config.getNumServers();
         this.isCrashed = false;
@@ -71,15 +98,28 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
         }
 
         initializeKvStore(kvStore);
+
+        randomCrashJob();
+        leaderElectionJob();
     }
 
     private void SyncFollowerJobs() {
         daemonExecutor.scheduleAtFixedRate(this::sendAppendEntries, 2000, 2000, TimeUnit.MILLISECONDS);
     }
 
+    private void randomCrashJob() {
+        daemonExecutor.scheduleAtFixedRate(this::randomCrash, 4000, 4000, TimeUnit.MILLISECONDS);
+    }
 
+    private void leaderElectionJob() {
+        daemonExecutor.scheduleAtFixedRate(this::bully, 1000, 1000, TimeUnit.MILLISECONDS);
+    }
 
     private synchronized void sendAppendEntries() {
+        if (isCrashed) {
+            return;
+        }
+
         if (status != Status.Idle) return;
         if (servNum != proposerId) return;
 
@@ -107,7 +147,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
                 Utils.println(String.format("KvStoreServer%d cannot be reached....try later....", i));
             }
         }
-        Utils.println(String.format("(SyncFollowerJob)%d out of %d followers in sync", counter, numKvStoreServer));
+        Utils.println(String.format("(SyncFollowerJob)%d out of %d followers in sync", counter, numKvStoreServer - 1));
         executor.shutdown();
         status = Status.Idle;
     }
@@ -145,13 +185,16 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
         if (counter < numKvStoreServer / 2) {
             // Remove an log entry on TCP manager server
             logFile.remove(commitIndex);
+            Utils.println(String.format("(Paxos) Less than half of followers aggree to append log, ready to abort...."));
             return false;
         }
-
+        Utils.println(String.format("(Paxos) More than half of followers aggree to append log, ready to send accepted request"));
         return true;
     }
 
     private KvMessage startPaxos(KvMessage request) {
+        Utils.println(String.format("(Paxos) Start Paxos algo to append log"));
+
         synchronized (this) {
             while (this.status != Status.Idle) {
                 try {
@@ -182,7 +225,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
     
     
     
-            KvMessage response = KvMessage.newBuilder().setMessage("Finish Tpc").build();
+            KvMessage response = KvMessage.newBuilder().setMessage("Finish Paxos").build();
     
 
             this.status = Status.Idle;
@@ -341,11 +384,8 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
     }
 
 
-
     @Override
     public void prepare(KvMessage request, StreamObserver<KvMessage> responseObserver) {
-        
-
 
         Builder responseMessageBuilder = KvMessage.newBuilder();
         if (isCrashed) {
@@ -365,7 +405,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             // change status, block other request
             this.status = Status.Busy;
 
-            if (logFile.size() > request.getCommitIndex()) {
+            if (logFile.size() > request.getCommitIndex() || appliedIndex != logFile.size()) {
                 responseMessageBuilder.setVote(false);
             } else {
                 logFile.add(request);
@@ -374,7 +414,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             notifyAll();
         }
 
-        Utils.println(String.format("2pc vote result is %s", String.valueOf(responseMessageBuilder.getVote())));
+        Utils.println(String.format("Paxos vote result is %s", String.valueOf(responseMessageBuilder.getVote())));
         responseObserver.onNext(responseMessageBuilder.build());
         responseObserver.onCompleted();
     }
@@ -391,6 +431,11 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
 
     @Override
     public void accept(KvMessage request, StreamObserver<KvMessage> responseObserver) {
+        Builder responseMessageBuilder = KvMessage.newBuilder();
+        if (isCrashed) {
+            responseMessageBuilder.setVote(false);
+        }
+
         // TODO Auto-generated method stub
         if (request.getCommitIndex() + 1 == logFile.size()) {
             logFile.set(logFile.size() - 1, request);
@@ -404,6 +449,29 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
     
         this.status = Status.Idle;
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void bully(KvMessage request, StreamObserver<KvMessage> responseObserver) {
+        int id = request.getClientId();
+        proposerId = proposerId > id ? proposerId : id;
+        responseObserver.onNext(request);
+        responseObserver.onCompleted();
+    }
+
+    public void bully() {
+
+        if (isCrashed) return;
+
+        KvMessage req = KvMessage.newBuilder().setClientId(servNum).build();
+        for (int i = 0; i < KvStoreServerStubs.length; i++) {
+            if (i != servNum) {
+                KvStoreServiceBlockingStub follower = KvStoreServerStubs[i];
+                follower.bully(req);
+            }
+        }
+        Utils.println(String.format("Finished leader election: leader is Server%d", proposerId));
+       
     }
 
     @Override
@@ -431,7 +499,8 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             if(logEntries.isEmpty() || logEntries.get(0).getCommitIndex() > logFile.size()) {
                 responseObserver.onNext(KvMessage.newBuilder().setCommitIndex(logFile.size()).build());
                 responseObserver.onCompleted();
-                Utils.println(String.format("Finished syncing with TcpManager, appliedIndex: %d, logFileIndex %d", appliedIndex, logFile.size()));
+                update();
+                Utils.println(String.format("Finished syncing with Leader (serverNum%d), appliedIndex: %d, logFileIndex %d", proposerId, appliedIndex, logFile.size()));
                 return;
             }
             
@@ -446,7 +515,7 @@ public class KvStoreServiceImpl extends KvStoreServiceGrpc.KvStoreServiceImplBas
             update();
 
             //ToDo: handle partial applied.
-            Utils.println(String.format("Finished syncing with TcpManager, appliedIndex: %d, logFileIndex %d", appliedIndex, logFile.size()));
+            Utils.println(String.format("Finished syncing with Leader, appliedIndex: %d, logFileIndex %d", appliedIndex, logFile.size()));
             responseObserver.onNext(KvMessage.newBuilder().setCommitIndex(logFile.size()).build());
             responseObserver.onCompleted();
         }

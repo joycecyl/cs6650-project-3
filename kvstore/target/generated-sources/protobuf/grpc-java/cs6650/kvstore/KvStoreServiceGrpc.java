@@ -135,6 +135,18 @@ public final class KvStoreServiceGrpc {
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
           .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+      cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> METHOD_BULLY =
+      io.grpc.MethodDescriptor.<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage, cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "cs6650.kvstore.KvStoreService", "bully"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              cs6650.kvstore.KvStoreServiceOuterClass.KvMessage.getDefaultInstance()))
+          .build();
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -232,6 +244,16 @@ public final class KvStoreServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_ACCEPT, responseObserver);
     }
 
+    /**
+     * <pre>
+     *leader election
+     * </pre>
+     */
+    public void bully(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_BULLY, responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -297,6 +319,13 @@ public final class KvStoreServiceGrpc {
                 cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
                 cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
                   this, METHODID_ACCEPT)))
+          .addMethod(
+            METHOD_BULLY,
+            asyncUnaryCall(
+              new MethodHandlers<
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage,
+                cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>(
+                  this, METHODID_BULLY)))
           .build();
     }
   }
@@ -396,6 +425,17 @@ public final class KvStoreServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_ACCEPT, getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     *leader election
+     * </pre>
+     */
+    public void bully(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request,
+        io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_BULLY, getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -483,6 +523,16 @@ public final class KvStoreServiceGrpc {
     public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage accept(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
       return blockingUnaryCall(
           getChannel(), METHOD_ACCEPT, getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     *leader election
+     * </pre>
+     */
+    public cs6650.kvstore.KvStoreServiceOuterClass.KvMessage bully(cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_BULLY, getCallOptions(), request);
     }
   }
 
@@ -581,6 +631,17 @@ public final class KvStoreServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_ACCEPT, getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     *leader election
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage> bully(
+        cs6650.kvstore.KvStoreServiceOuterClass.KvMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_BULLY, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PUT = 0;
@@ -592,6 +653,7 @@ public final class KvStoreServiceGrpc {
   private static final int METHODID_SYNC = 6;
   private static final int METHODID_START_PAXOS = 7;
   private static final int METHODID_ACCEPT = 8;
+  private static final int METHODID_BULLY = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -646,6 +708,10 @@ public final class KvStoreServiceGrpc {
           serviceImpl.accept((cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) request,
               (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
           break;
+        case METHODID_BULLY:
+          serviceImpl.bully((cs6650.kvstore.KvStoreServiceOuterClass.KvMessage) request,
+              (io.grpc.stub.StreamObserver<cs6650.kvstore.KvStoreServiceOuterClass.KvMessage>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -688,6 +754,7 @@ public final class KvStoreServiceGrpc {
               .addMethod(METHOD_SYNC)
               .addMethod(METHOD_START_PAXOS)
               .addMethod(METHOD_ACCEPT)
+              .addMethod(METHOD_BULLY)
               .build();
         }
       }
